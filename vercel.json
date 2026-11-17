@@ -2,6 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "redirects": [
-    { "source": "/album", "destination": "https://panel-invitados.vercel.app/subir/boda-luz-monica-serrano-lopez-y-juan-diego-bobadilla-romero", "permanent": false }
+    { "source": "/album", "destination": "https://panel-invitados.vercel.app/subir/boda-luz-monica-y-juan-diego", "permanent": false }
   ]
 }

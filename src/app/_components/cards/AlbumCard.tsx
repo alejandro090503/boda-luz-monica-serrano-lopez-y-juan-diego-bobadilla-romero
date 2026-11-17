@@ -57,7 +57,7 @@ export default function AlbumCard() {
 
       <Stagger>
         <div className="flex justify-center mt-5">
-          {/* Album de Elysium: el QR abre /album → panel-invitados.vercel.app/subir/boda-luz-monica-serrano-lopez-y-juan-diego-bobadilla-romero */}
+          {/* Album de Elysium: el QR abre /album → panel-invitados.vercel.app/subir/boda-luz-monica-y-juan-diego */}
           <div className={`album-qr${bloqueado ? " bloqueado" : ""}`} data-fecha={FECHA_EVENTO}>
             <div
               style={{

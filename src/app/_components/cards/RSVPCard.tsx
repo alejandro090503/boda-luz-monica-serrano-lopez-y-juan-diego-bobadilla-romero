@@ -9,7 +9,7 @@ import { lanzarConfeti } from "../Vida";
 import { Palabras } from "../Vida";
 
 const PANEL_API = "https://panel-invitados.vercel.app/api/confirmar";
-const RSVP_URL = "https://boda-luz-monica-serrano-lopez-y-juan-diego-bobadilla-romero.vercel.app";
+const RSVP_URL = "https://boda-luz-monica-y-juan-diego.vercel.app";
 /* Fecha límite de confirmación: 6 de noviembre de 2026 (coincide con el texto del pie). */
 const DEADLINE = new Date(2026, 11, 13, 23, 59, 59, 999);
 

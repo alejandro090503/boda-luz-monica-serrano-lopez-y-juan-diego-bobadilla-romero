@@ -26,7 +26,7 @@ const sans = Jost({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://boda-luz-monica-serrano-lopez-y-juan-diego-bobadilla-romero.vercel.app"),
+  metadataBase: new URL("https://boda-luz-monica-y-juan-diego.vercel.app"),
   title: `Luz Mónica & Juan Diego — ${FECHA_PUNTEADA}`,
   description:
     `Con el amor de nuestras familias, Luz Mónica y Juan Diego los invitan a celebrar su boda. ${FECHA_LARGA}, Tlaltenango, Zacatecas.`,
