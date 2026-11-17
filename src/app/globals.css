@@ -1548,8 +1548,17 @@ body {
   border-image-source: url("/marcos/rect.jpg"); border-image-slice: 150 fill; border-width: 42px; border-image-repeat: stretch round; padding: 1.1rem .5rem !important;
 }
 #padrinos .card-base, #vestimenta .tex-beige, #hospedaje .card-base {
-  border-image-source: url("/marcos/hort.jpg"); border-image-slice: 250 fill; border-width: 54px; border-image-repeat: stretch round; padding: 1rem .4rem !important;
+  border-image-source: url("/marcos/rect.jpg"); border-image-slice: 150 fill; border-width: 42px; border-image-repeat: stretch round; padding: 1.1rem .5rem !important;
 }
+/* Hortensias encima del marco (dos esquinas), sin estirar */
+#padrinos .card-base::before, #vestimenta .tex-beige::before, #hospedaje .card-base::before,
+#padrinos .card-base::after, #vestimenta .tex-beige::after, #hospedaje .card-base::after {
+  display: block !important; content: ""; position: absolute; z-index: 5; pointer-events: none;
+  width: 96px; height: 90px; inset: auto; border: 0; opacity: 1;
+  background: url("/mx/hortensia-sola.webp") center / contain no-repeat;
+}
+#padrinos .card-base::before, #vestimenta .tex-beige::before, #hospedaje .card-base::before { top: -70px; left: -66px; transform: rotate(-14deg); }
+#padrinos .card-base::after, #vestimenta .tex-beige::after, #hospedaje .card-base::after { bottom: -66px; right: -64px; transform: rotate(160deg); }
 #ubicaciones .card-arch, #itinerario .card-base, #galeria .card-base {
   border-image-source: url("/marcos/arch.jpg"); border-image-slice: 420 150 150 fill; border-width: 118px 42px 42px; border-image-repeat: stretch round; padding: 0 .5rem 1rem !important;
 }
