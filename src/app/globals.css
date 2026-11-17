@@ -1577,3 +1577,5 @@ body {
 /* Hospedaje: el carrusel cabe dentro del marco */
 .hosp-carousel { max-width: 100% !important; }
 .hosp-slide { padding-left: 6px !important; padding-right: 6px !important; }
+/* El disco siempre visible (aunque el navegador bloquee el autoplay) y por encima de todo */
+.vinyl-btn { opacity: 1 !important; transform: none !important; pointer-events: auto !important; z-index: 90 !important; }
