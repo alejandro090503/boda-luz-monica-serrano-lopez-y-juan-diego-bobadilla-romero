@@ -285,7 +285,7 @@ export default function RSVPCard() {
               </span>
               <br />
               {t.rsvpPara}{" "}
-              <span className="font-script" style={{ color: "var(--olive-primary)", fontSize: "1.8rem" }}>
+              <span className="font-serif" style={{ color: "var(--olive-primary)", fontSize: "1.55rem", fontWeight: 700 }}>
                 {urlPara}
               </span>
             </p>
@@ -459,9 +459,9 @@ export default function RSVPCard() {
                             −
                           </button>
                           <span
-                            className="font-script"
+                            className="font-serif"
                             aria-live="polite"
-                            style={{ color: "var(--olive-primary)", fontSize: "2.6rem", lineHeight: 1, minWidth: 58 }}
+                            style={{ color: "var(--olive-primary)", fontWeight: 700, fontSize: "2.2rem", lineHeight: 1, minWidth: 58 }}
                           >
                             {pasesAUsar}
                           </span>
