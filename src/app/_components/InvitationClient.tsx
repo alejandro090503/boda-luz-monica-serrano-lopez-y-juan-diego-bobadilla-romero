@@ -7,7 +7,7 @@ import AudioPlayer, { type AudioAPI } from "./AudioPlayer";
 import Petals from "./Petals";
 import MexBackground from "./MexBackground";
 import FloatingMenu from "./FloatingMenu";
-import { SecDiv } from "./Vida";
+import { SecDiv, SalidaBlur } from "./Vida";
 import CoverCard from "./cards/CoverCard";
 import HeroCard from "./cards/HeroCard";
 import VerseCard from "./cards/VerseCard";
@@ -86,6 +86,7 @@ export default function InvitationClient() {
       {phase === "cards" && <MexBackground />}
       {phase === "cards" && <Petals />}
       {phase === "cards" && <FloatingMenu />}
+      {phase === "cards" && <SalidaBlur />}
 
       {phase === "cards" && (
         <Sec id="inicio">

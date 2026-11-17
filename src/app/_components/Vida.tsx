@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 
 /**
@@ -118,4 +119,31 @@ export function lanzarConfeti(origen?: HTMLElement | null) {
     );
   }
   setTimeout(() => capa.remove(), 3000);
+}
+
+/** La tarjeta que va saliendo por arriba se desenfoca y se aclara; la que entra queda nitida. */
+export function SalidaBlur() {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    const pintar = () => {
+      raf = 0;
+      const vh = window.innerHeight;
+      document.querySelectorAll<HTMLElement>(".sec-anchor > *").forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const t = Math.min(Math.max((vh * 0.32 - r.bottom) / (vh * 0.32), 0), 1);
+        if (t <= 0) {
+          if (el.style.filter) { el.style.filter = ""; el.style.opacity = ""; }
+          return;
+        }
+        el.style.filter = `blur(${(t * 6).toFixed(1)}px)`;
+        el.style.opacity = String(1 - t * 0.6);
+      });
+    };
+    const on = () => { if (!raf) raf = requestAnimationFrame(pintar); };
+    window.addEventListener("scroll", on, { passive: true });
+    pintar();
+    return () => { window.removeEventListener("scroll", on); if (raf) cancelAnimationFrame(raf); };
+  }, []);
+  return null;
 }
