@@ -1193,7 +1193,6 @@ body {
 /* ══════════════ Capa de vida: ubicaciones que levitan ══════════════ */
 .levita {
   width: 100%;
-  perspective: 1100px;
   animation: levitar 5.6s ease-in-out infinite;
   transition: transform .45s cubic-bezier(.22,.61,.36,1), filter .45s ease;
   outline: none;
@@ -1204,7 +1203,7 @@ body {
   50% { translate: 0 -6px; }
 }
 .levita:hover, .levita:active, .levita:focus-within {
-  transform: translateY(-10px) rotateX(3deg) rotateY(-2deg);
+  transform: translateY(-8px);
   filter: drop-shadow(0 26px 30px rgba(0, 30, 90, .22));
 }
 .pin-late { animation: pinLate 1.8s ease-in-out infinite; transform-origin: 50% 90%; }
@@ -1273,7 +1272,7 @@ body {
 .reloj-svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 6px 10px rgba(0, 30, 90, .22)); }
 .reloj-num {
   position: absolute; left: 0; right: 0;
-  top: 65.5%;
+  top: auto;
   text-align: center;
   font-size: clamp(1.05rem, 4.6vw, 1.35rem); font-weight: 700; color: #002878;
   font-variant-numeric: lining-nums tabular-nums;
@@ -1517,8 +1516,8 @@ body {
 .mx-fondo-mov {
   position: absolute; top: 0; bottom: 0; left: 0;
   width: calc(100% + 320px);
-  background: url("/mx/talavera-patron.jpg") 0 0 / 320px 320px repeat;
-  opacity: .45;
+  background: url("/mx/talavera-tile.jpg") 0 0 / 320px 320px repeat;
+  opacity: .5;
   animation: mxIzq 30s linear infinite;
 }
 .mx-tira-mov {
@@ -1530,3 +1529,52 @@ body {
 @keyframes mxIzq { to { transform: translate3d(-320px, 0, 0); } }
 @keyframes mxDer { to { transform: translate3d(636px, 0, 0); } }
 @media (prefers-reduced-motion: reduce) { .mx-fondo-mov, .mx-tira-mov { animation: none; } }
+
+/* ══════════ Marcos de talavera (9-slice, sin zoom) ══════════ */
+#familia .ornate-card, #cuenta .card-base, #ubicaciones .card-mini-envelope, #vestimenta .tex-count, #album .card-base,
+#padrinos .card-base, #vestimenta .tex-beige, #hospedaje .card-base,
+#ubicaciones .card-arch, #itinerario .card-base, #galeria .card-base,
+#regalos .card-base, #confirmar .card-base {
+  background: none !important;
+  border-style: solid;
+  border-radius: 0 !important;
+  box-shadow: none;
+  filter: drop-shadow(0 12px 22px rgba(0, 30, 90, .16));
+  border-image-repeat: round;
+}
+#familia .ornate-card::before, #familia .ornate-card::after,
+.card-base::before, .card-base::after { display: none !important; }
+#familia .ornate-card, #cuenta .card-base, #ubicaciones .card-mini-envelope, #vestimenta .tex-count, #album .card-base {
+  border-image-source: url("/marcos/rect.jpg"); border-image-slice: 150 fill; border-width: 42px; border-image-repeat: stretch round; padding: 1.1rem .5rem !important;
+}
+#padrinos .card-base, #vestimenta .tex-beige, #hospedaje .card-base {
+  border-image-source: url("/marcos/hort.jpg"); border-image-slice: 250 fill; border-width: 54px; border-image-repeat: stretch round; padding: 1rem .4rem !important;
+}
+#ubicaciones .card-arch, #itinerario .card-base, #galeria .card-base {
+  border-image-source: url("/marcos/arch.jpg"); border-image-slice: 420 150 150 fill; border-width: 118px 42px 42px; border-image-repeat: stretch round; padding: 0 .5rem 1rem !important;
+}
+#regalos .card-base, #confirmar .card-base {
+  border-image-source: url("/marcos/lot.jpg"); border-image-slice: 200 150 190 fill; border-width: 56px 42px 53px; border-image-repeat: stretch round; padding: 1.2rem .5rem !important;
+}
+#familia .ornate-card { margin: 0 -10px; }
+.mini-flap { display: none; }
+#ubicaciones img.absolute[src*="sello"], #ubicaciones img.absolute[src*="sobre-motivo"] { display: none; }
+
+/* Aviso de colores: fuente propia */
+.dc-evitar { font-family: var(--font-evitar), serif; font-weight: 700; font-size: 1.05rem; letter-spacing: .04em; line-height: 1.35; }
+
+/* Vestimenta en dos columnas */
+.dc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: .4rem 0 1.4rem; align-items: end; }
+.dc-grid figure { margin: 0; display: flex; flex-direction: column; align-items: center; }
+.dc-grid img { height: 250px; width: auto; max-width: 100%; object-fit: contain; animation: dcFlotar 5s ease-in-out infinite; transform-origin: 50% 100%; filter: drop-shadow(0 8px 10px rgba(0,26,82,.18)); }
+.dc-grid figure:nth-child(2) img { animation-delay: -2.5s; }
+.dc-grid figcaption { margin-top: .5rem; font-size: .8rem; font-weight: 600; color: var(--olive-primary); letter-spacing: .2em; }
+
+/* Relojes: numero debajo, no encima */
+.reloj-num { position: static !important; margin-top: .25rem; font-size: 1.5rem !important; }
+.reloj-num .font-serif { text-shadow: none !important; }
+.reloj-lbl { margin-top: .1rem !important; }
+
+/* Hospedaje: el carrusel cabe dentro del marco */
+.hosp-carousel { max-width: 100% !important; }
+.hosp-slide { padding-left: 6px !important; padding-right: 6px !important; }

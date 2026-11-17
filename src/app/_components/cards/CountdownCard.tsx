@@ -123,67 +123,106 @@ function Calendario({ fecha, dias }: { fecha: Date; dias: number | null }) {
   );
 }
 
-/* Reloj de bolsillo dorado: la manecilla marca la fraccion (valor/max). */
+/* Reloj de bolsillo premium: caja con bisel moleteado, esfera esmaltada con
+   guilloche, numeros romanos, subesfera de segundos y manecilla Breguet azul. */
+const ROMANOS = ["XII", "I", "II", "III", "IIII", "V", "VI", "VII", "VIII", "IX", "X", "XI"];
+
 function Reloj({ valor, max, etiqueta, id }: { valor: number | null; max: number; etiqueta: string; id: string }) {
   const ang = valor === null ? 0 : (valor / max) * 360;
   const v = valor === null ? "––" : String(valor).padStart(2, "0");
+  const cx = 70, cy = 104;
+  const pt = (deg: number, r: number) => {
+    const a = (deg * Math.PI) / 180;
+    return [cx + Math.sin(a) * r, cy - Math.cos(a) * r];
+  };
   return (
     <div className="reloj">
-      <svg viewBox="0 0 120 150" className="reloj-svg" aria-hidden="true">
+      <svg viewBox="0 0 140 172" className="reloj-svg" aria-hidden="true">
         <defs>
-          <linearGradient id={`caja-${id}`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#fbf0bf" />
-            <stop offset=".28" stopColor="#d4af37" />
-            <stop offset=".55" stopColor="#9a7b22" />
-            <stop offset=".78" stopColor="#e3c768" />
-            <stop offset="1" stopColor="#6f520e" />
+          <linearGradient id={`oro-${id}`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#fff4c4" />
+            <stop offset=".22" stopColor="#e2c25a" />
+            <stop offset=".45" stopColor="#a8841f" />
+            <stop offset=".62" stopColor="#f1d985" />
+            <stop offset=".82" stopColor="#8a6a14" />
+            <stop offset="1" stopColor="#5e450a" />
           </linearGradient>
-          <radialGradient id={`esfera-${id}`} cx=".42" cy=".38" r=".7">
-            <stop offset="0" stopColor="#FFFFF4" />
-            <stop offset=".75" stopColor="#FBF6DC" />
-            <stop offset="1" stopColor="#EDE3BD" />
+          <linearGradient id={`oro2-${id}`} x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#6f520e" />
+            <stop offset=".5" stopColor="#d9b94e" />
+            <stop offset="1" stopColor="#fff0b8" />
+          </linearGradient>
+          <radialGradient id={`esm-${id}`} cx=".4" cy=".35" r=".75">
+            <stop offset="0" stopColor="#FFFFFA" />
+            <stop offset=".7" stopColor="#FAF4DD" />
+            <stop offset="1" stopColor="#E6DAB2" />
           </radialGradient>
+          <linearGradient id={`azul-${id}`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#3d6fd1" />
+            <stop offset=".5" stopColor="#002878" />
+            <stop offset="1" stopColor="#001446" />
+          </linearGradient>
         </defs>
-        {/* argolla y corona */}
-        <circle cx="60" cy="13" r="9.5" fill="none" stroke={`url(#caja-${id})`} strokeWidth="3.4" />
-        <rect x="53" y="20" width="14" height="11" rx="2.5" fill={`url(#caja-${id})`} />
-        <rect x="55.5" y="17.5" width="9" height="4" rx="1.5" fill={`url(#caja-${id})`} />
+        {/* argolla ovalada */}
+        <ellipse cx="70" cy="15" rx="12" ry="10.5" fill="none" stroke={`url(#oro-${id})`} strokeWidth="4" />
+        <ellipse cx="70" cy="15" rx="12" ry="10.5" fill="none" stroke="#5e450a" strokeOpacity=".35" strokeWidth=".6" />
+        {/* corona moleteada */}
+        <rect x="61" y="25" width="18" height="15" rx="3" fill={`url(#oro-${id})`} />
+        {Array.from({ length: 7 }, (_, i) => (
+          <line key={i} x1={63.5 + i * 2.2} y1="26.5" x2={63.5 + i * 2.2} y2="38.5" stroke="#6f520e" strokeOpacity=".55" strokeWidth=".7" />
+        ))}
+        <rect x="65" y="39" width="10" height="9" rx="1.5" fill={`url(#oro2-${id})`} />
         {/* caja */}
-        <circle cx="60" cy="88" r="56" fill={`url(#caja-${id})`} />
-        <circle cx="60" cy="88" r="50.5" fill="none" stroke="#6f520e" strokeOpacity=".45" strokeWidth="1" />
-        <circle cx="60" cy="88" r="48" fill={`url(#esfera-${id})`} />
-        <circle cx="60" cy="88" r="43.5" fill="none" stroke="#002878" strokeOpacity=".35" strokeWidth=".8" />
-        {/* marcas */}
-        {Array.from({ length: 12 }, (_, i) => {
-          const a = (i * 30 * Math.PI) / 180;
-          const r1 = i % 3 === 0 ? 36 : 39.5;
+        <circle cx={cx} cy={cy} r="64" fill={`url(#oro-${id})`} />
+        {Array.from({ length: 90 }, (_, i) => {
+          const [x1, y1] = pt(i * 4, 63.4);
+          const [x2, y2] = pt(i * 4, 59.6);
+          return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#5e450a" strokeOpacity=".5" strokeWidth=".7" />;
+        })}
+        <circle cx={cx} cy={cy} r="58.6" fill={`url(#oro2-${id})`} />
+        <circle cx={cx} cy={cy} r="55" fill={`url(#oro-${id})`} />
+        {/* esfera esmaltada + guilloche */}
+        <circle cx={cx} cy={cy} r="51.5" fill={`url(#esm-${id})`} />
+        {[14, 19, 24, 29].map((r) => (
+          <circle key={r} cx={cx} cy={cy} r={r} fill="none" stroke="#002878" strokeOpacity=".07" strokeWidth=".6" />
+        ))}
+        {Array.from({ length: 48 }, (_, i) => {
+          const [x1, y1] = pt(i * 7.5, 6);
+          const [x2, y2] = pt(i * 7.5, 31);
+          return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#002878" strokeOpacity=".05" strokeWidth=".5" />;
+        })}
+        {/* pista de minutos */}
+        <circle cx={cx} cy={cy} r="48" fill="none" stroke="#002878" strokeOpacity=".7" strokeWidth=".5" />
+        <circle cx={cx} cy={cy} r="45" fill="none" stroke="#002878" strokeOpacity=".7" strokeWidth=".5" />
+        {Array.from({ length: 60 }, (_, i) => {
+          const [x1, y1] = pt(i * 6, 48);
+          const [x2, y2] = pt(i * 6, i % 5 ? 45.8 : 44);
+          return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#002878" strokeWidth={i % 5 ? 0.5 : 1.3} />;
+        })}
+        {/* numeros romanos */}
+        {ROMANOS.map((n, i) => {
+          const [x, y] = pt(i * 30, 37.5);
           return (
-            <line
-              key={i}
-              x1={60 + Math.sin(a) * r1}
-              y1={88 - Math.cos(a) * r1}
-              x2={60 + Math.sin(a) * 43}
-              y2={88 - Math.cos(a) * 43}
-              stroke="#002878"
-              strokeWidth={i % 3 === 0 ? 2.2 : 1.1}
-              strokeLinecap="round"
-            />
+            <text key={n} x={x} y={y + 2.6} textAnchor="middle" fontFamily="var(--font-serif), serif" fontWeight="700" fontSize={i % 3 ? 7 : 8.6} fill="#14213D">
+              {n}
+            </text>
           );
         })}
-        {/* manecilla */}
-        <g
-          style={{
-            transform: `rotate(${ang}deg)`,
-            transformOrigin: "60px 88px",
-            transition: "transform .55s cubic-bezier(.34,1.56,.64,1)",
-          }}
-        >
-          <path d="M60 52 L62.4 86 L60 92 L57.6 86 Z" fill="#002878" />
-          <circle cx="60" cy="56" r="2.2" fill="#D4AF37" />
+        {/* subesfera decorativa */}
+        <circle cx={cx} cy={cy + 21} r="9" fill="#FFFDF0" stroke="#002878" strokeOpacity=".55" strokeWidth=".6" />
+        <circle cx={cx} cy={cy + 21} r="1.3" fill="#002878" />
+        {/* manecilla Breguet */}
+        <g style={{ transform: `rotate(${ang}deg)`, transformOrigin: `${cx}px ${cy}px`, transition: "transform .6s cubic-bezier(.34,1.56,.64,1)" }}>
+          <path d={`M${cx} ${cy + 13} L${cx} ${cy - 23}`} stroke={`url(#azul-${id})`} strokeWidth="1.8" strokeLinecap="round" />
+          <circle cx={cx} cy={cy - 27} r="4.3" fill="none" stroke={`url(#azul-${id})`} strokeWidth="1.6" />
+          <path d={`M${cx} ${cy - 31.5} L${cx - 1.6} ${cy - 37} L${cx} ${cy - 44} L${cx + 1.6} ${cy - 37} Z`} fill={`url(#azul-${id})`} />
+          <circle cx={cx} cy={cy + 14} r="2.6" fill={`url(#azul-${id})`} />
         </g>
-        <circle cx="60" cy="88" r="3.6" fill="#D4AF37" stroke="#6f520e" strokeWidth=".8" />
-        {/* reflejo del cristal */}
-        <path d="M24 70 A40 40 0 0 1 52 44" fill="none" stroke="#fff" strokeOpacity=".7" strokeWidth="3" strokeLinecap="round" />
+        <circle cx={cx} cy={cy} r="4.4" fill={`url(#oro-${id})`} stroke="#5e450a" strokeWidth=".6" />
+        <circle cx={cx} cy={cy} r="1.4" fill="#002878" />
+        {/* cristal */}
+        <path d={`M${cx - 40} ${cy - 10} A42 42 0 0 1 ${cx - 12} ${cy - 41}`} fill="none" stroke="#fff" strokeOpacity=".75" strokeWidth="3.4" strokeLinecap="round" />
+        <path d={`M${cx + 34} ${cy + 26} A42 42 0 0 1 ${cx + 18} ${cy + 38}`} fill="none" stroke="#fff" strokeOpacity=".45" strokeWidth="1.8" strokeLinecap="round" />
       </svg>
       <div className="reloj-num">
         <Giro className="font-serif" valor={v} />

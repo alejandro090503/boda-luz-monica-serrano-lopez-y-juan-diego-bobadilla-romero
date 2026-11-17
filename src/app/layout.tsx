@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Pinyon_Script, Jost, Cormorant } from "next/font/google";
+import { Pinyon_Script, Jost, Cormorant, Cinzel_Decorative } from "next/font/google";
 import "./globals.css";
 import { FECHA_PUNTEADA, FECHA_LARGA } from "./_data/fecha";
 
@@ -25,6 +25,9 @@ const sans = Jost({
   variable: "--font-sans",
 });
 
+// Solo para el aviso de colores a evitar (no se repite en la invitacion)
+const evitar = Cinzel_Decorative({ subsets: ["latin"], weight: ["700"], variable: "--font-evitar" });
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://boda-luz-monica-y-juan-diego.vercel.app"),
   title: `Luz Mónica & Juan Diego — ${FECHA_PUNTEADA}`,
@@ -46,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${script.variable} ${serif.variable} ${sans.variable}`}
+      className={`${script.variable} ${serif.variable} ${sans.variable} ${evitar.variable}`}
     >
       <body className="min-h-dvh">{children}</body>
     </html>

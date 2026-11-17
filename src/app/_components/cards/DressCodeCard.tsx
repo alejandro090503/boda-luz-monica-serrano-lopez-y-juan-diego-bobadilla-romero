@@ -123,7 +123,6 @@ function Visor({ clave, onClose }: { clave: Clave; onClose: () => void }) {
 
 export default function DressCodeCard() {
   const { t } = useLang();
-  const [abierto, setAbierto] = useState<Clave | null>(null);
 
   return (
     <AnimatedCard className="tex-beige text-center py-8" anim="flip" corners={false}>
@@ -162,37 +161,22 @@ export default function DressCodeCard() {
       </Stagger>
 
       <Stagger>
-        <div className="dc-looks">
-          {(["caballeros", "damas"] as Clave[]).map((k) => (
-            <button key={k} className="dc-look" type="button" onClick={() => setAbierto(k)} aria-label={`Ver ideas de vestimenta para ${k}`}>
-              <span className="dc-look-ico" aria-hidden="true">
-                {k === "caballeros" ? (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M8 3l4 3 4-3 3 2.2c1.2.9 1.9 2.3 1.9 3.8V21H3V9c0-1.5.7-2.9 1.9-3.8L8 3z" />
-                    <path d="M12 6v15" />
-                    <path d="M9.4 4.2L12 9l2.6-4.8" />
-                  </svg>
-                ) : (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 3h6l-1.4 5.2L21 21H3l7.4-12.8L9 3z" />
-                    <path d="M10.6 8.2h2.8" />
-                  </svg>
-                )}
-              </span>
-              <span className="dc-look-txt">
-                <span className="dc-look-rol">{k === "caballeros" ? t.caballeros : t.damas}</span>
-                <span className="dc-look-cta">{t.verIdeas}</span>
-              </span>
-              <span className="dc-look-arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
-              </span>
-            </button>
-          ))}
+        <div className="dc-grid">
+          <figure>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/looks/cab-vaquero.webp" alt="Caballeros: traje, sombrero y botas" />
+            <figcaption className="font-sans-label">{t.caballeros}</figcaption>
+          </figure>
+          <figure>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/looks/dama-vaquera.webp" alt="Damas: vestido largo" />
+            <figcaption className="font-sans-label">{t.damas}</figcaption>
+          </figure>
         </div>
       </Stagger>
 
       <Stagger>
-        <p className="font-sans-label" style={{ color: "var(--ink-dark)", fontSize: "0.82rem", fontWeight: 600, letterSpacing: "0.16em", marginTop: "0.6rem" }}>
+        <p className="dc-evitar" style={{ color: "var(--ink-dark)", marginTop: "0.6rem" }}>
           {t.coloresAviso}
         </p>
       </Stagger>
@@ -226,7 +210,6 @@ export default function DressCodeCard() {
         </div>
       </Stagger>
 
-      {abierto && <Visor clave={abierto} onClose={() => setAbierto(null)} />}
     </AnimatedCard>
   );
 }

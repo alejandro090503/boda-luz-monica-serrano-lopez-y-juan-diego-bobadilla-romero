@@ -77,7 +77,7 @@ export default function EnvelopeLoader({ onOpen, onTap }: Props) {
         >
           {/* Imagen estática del sobre */}
           <motion.img
-            src="/envelope.jpg?v=3"
+            src="/envelope.jpg?v=4"
             alt="Sobre de la invitación"
             className="absolute inset-0 w-full h-full"
             style={{ objectFit: "cover", objectPosition: "center" }}
@@ -98,7 +98,7 @@ export default function EnvelopeLoader({ onOpen, onTap }: Props) {
             animate={{ opacity: phase === "opening" ? 1 : 0 }}
             transition={{ duration: 0 }}
           >
-            <source src="/envelope.mp4?v=3" type="video/mp4" />
+            <source src="/envelope.mp4?v=4" type="video/mp4" />
           </motion.video>
 
           {/* Hint "Toca para abrir" */}
