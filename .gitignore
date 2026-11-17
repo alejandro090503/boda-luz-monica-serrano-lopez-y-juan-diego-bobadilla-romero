@@ -5,3 +5,6 @@ out/
 .env*.local
 _src/
 tsconfig.tsbuildinfo
+
+.vercel
+.env*
