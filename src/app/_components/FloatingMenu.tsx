@@ -125,10 +125,6 @@ export default function FloatingMenu() {
             </li>
           ))}
         </ul>
-        <span className="fm-sep" aria-hidden="true" />
-        <button type="button" className="fm-icon" onClick={compartir} aria-label="Compartir invitación">
-          <IconoCompartir />
-        </button>
       </motion.nav>
 
       {/* ── Celular ── */}
@@ -141,9 +137,6 @@ export default function FloatingMenu() {
       >
         <button type="button" className="fm-mono" onClick={() => ir("inicio")} aria-label="Ir al inicio">
           <Monograma size={24} />
-        </button>
-        <button type="button" className="fm-icon" onClick={compartir} aria-label="Compartir invitación">
-          <IconoCompartir />
         </button>
         <button type="button" className="fm-menu-btn" onClick={() => setAbierto(true)} aria-expanded={abierto}>
           <span aria-hidden="true">&#9776;</span> Menú

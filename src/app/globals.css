@@ -1048,7 +1048,7 @@ body {
 /* ══════════════ MENÚ FLOTANTE (FloatingMenu.tsx) ══════════════ */
 /* En celular la pildora vive abajo: el disco de musica sube para no taparla */
 @media (max-width: 1023px) {
-  .vinyl-btn { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 74px) !important; right: 14px !important; width: 58px !important; height: 58px !important; }
+  .vinyl-btn { bottom: max(1rem, env(safe-area-inset-bottom)) !important; right: 14px !important; width: 58px !important; height: 58px !important; }
 }
 .fm-desk, .fm-mob {
   position: fixed;
@@ -1107,8 +1107,7 @@ body {
 .fm-sep { width: 1px; height: 24px; background: rgba(154, 123, 34, 0.5); margin: 0 4px; }
 
 .fm-mob {
-  left: 50%;
-  translate: -50% 0;
+  left: 14px;
   bottom: max(1rem, env(safe-area-inset-bottom));
   padding: 5px 6px 5px 14px;
   width: max-content;
