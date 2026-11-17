@@ -1512,3 +1512,21 @@ body {
 .hl-card .btn-map { white-space: nowrap; }
 .hl-dist { align-items: flex-start !important; line-height: 1.35; }
 .hl-dist svg { flex: 0 0 auto; margin-top: 3px; }
+
+/* Fondo en movimiento infinito: talavera ← , papel picado → */
+.mx-fondo-mov {
+  position: absolute; top: 0; bottom: 0; left: 0;
+  width: calc(100% + 320px);
+  background: url("/mx/talavera-patron.jpg") 0 0 / 320px 320px repeat;
+  opacity: .45;
+  animation: mxIzq 30s linear infinite;
+}
+.mx-tira-mov {
+  position: absolute; left: -636px;
+  width: calc(100% + 636px); height: 126px;
+  background: url("/mx/papel-picado.webp") 0 0 / 636px 126px repeat-x;
+  animation: mxDer 40s linear infinite;
+}
+@keyframes mxIzq { to { transform: translate3d(-320px, 0, 0); } }
+@keyframes mxDer { to { transform: translate3d(636px, 0, 0); } }
+@media (prefers-reduced-motion: reduce) { .mx-fondo-mov, .mx-tira-mov { animation: none; } }
