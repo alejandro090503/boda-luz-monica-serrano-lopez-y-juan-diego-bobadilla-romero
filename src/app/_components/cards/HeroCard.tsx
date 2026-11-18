@@ -20,29 +20,6 @@ export default function HeroCard() {
     >
       {/* Flat-lay: envelope with embossed liner behind the card */}
       <div className="relative pt-10 pb-6">
-        {/* Envelope body */}
-        <div
-          className="absolute inset-x-2 top-0 bottom-6 rounded-[3px] overflow-hidden"
-          style={{
-            backgroundColor: "var(--bg-cream)",
-            backgroundImage: "url('/paper-emboss.jpg')",
-            backgroundBlendMode: "luminosity",
-            backgroundSize: "cover",
-            boxShadow: "0 14px 40px rgba(31,28,25,0.18)",
-          }}
-        >
-          {/* Botanical liner peeking at top */}
-          <div
-            className="absolute inset-x-0 top-0 h-[38%]"
-            style={{
-              backgroundImage: "url('/liner-band.jpg')",
-              backgroundSize: "cover",
-              backgroundPosition: "center top",
-              clipPath: "polygon(0 0, 100% 0, 100% 55%, 50% 100%, 0 55%)",
-            }}
-          />
-        </div>
-
         {/* The invitation card on top, ornate frame */}
         <motion.div
           className="relative mx-4 mt-8 mb-2"

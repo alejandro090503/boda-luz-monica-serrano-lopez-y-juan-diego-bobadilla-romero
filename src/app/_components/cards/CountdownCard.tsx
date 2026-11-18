@@ -266,13 +266,18 @@ export default function CountdownCard() {
       </Stagger>
 
       <Stagger>
-        <div className="relojes">
-          <svg className="relojes-cadena" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M40 8 Q95 40 150 8 Q205 40 260 8" fill="none" stroke="#B8962E" strokeWidth="2" strokeDasharray="4 3" strokeLinecap="round" />
-          </svg>
-          <Reloj id="h" valor={resto ? resto.horas : null} max={24} etiqueta={t.horas} />
-          <Reloj id="m" valor={resto ? resto.minutos : null} max={60} etiqueta={t.minutos} />
-          <Reloj id="s" valor={resto ? resto.segundos : null} max={60} etiqueta={t.segundos} />
+        <div className="cuenta-cajas">
+          {[
+            { v: resto ? resto.dias : null, l: "Días" },
+            { v: resto ? resto.horas : null, l: "Horas" },
+            { v: resto ? resto.minutos : null, l: "Min" },
+            { v: resto ? resto.segundos : null, l: "Seg" },
+          ].map((c) => (
+            <div key={c.l} className="cuenta-caja">
+              <Giro className="num" valor={c.v === null ? "––" : String(c.v).padStart(2, "0")} />
+              <p className="lbl">{c.l}</p>
+            </div>
+          ))}
         </div>
       </Stagger>
 

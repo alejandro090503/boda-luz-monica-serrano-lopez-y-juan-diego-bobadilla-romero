@@ -1544,18 +1544,18 @@ body {
 #familia .ornate-card::before, #familia .ornate-card::after,
 .card-base::before, .card-base::after { display: none !important; }
 #familia .ornate-card, #cuenta .card-base, #ubicaciones .card-mini-envelope, #vestimenta .tex-count, #album .card-base {
-  border-image-source: url("/marcos/rect.jpg"); border-image-slice: 150 fill; border-width: 42px; border-image-repeat: stretch round; padding: 1.1rem .5rem !important;
+  border-image-source: url("/marcos/hort2.jpg"); border-image-slice: 245 fill; border-width: 56px; border-image-repeat: round; padding: 1rem .4rem !important;
 }
 #padrinos .card-base, #vestimenta .tex-beige, #hospedaje .card-base {
   border-image-source: url("/marcos/hort2.jpg"); border-image-slice: 245 fill; border-width: 56px; border-image-repeat: round; padding: 1rem .4rem !important;
 }
 #ubicaciones .card-arch, #itinerario .card-base, #galeria .card-base {
-  border-image-source: url("/marcos/arch.jpg"); border-image-slice: 420 150 150 fill; border-width: 118px 42px 42px; border-image-repeat: stretch round; padding: 0 .5rem 1rem !important;
+  border-image-source: url("/marcos/hort2.jpg"); border-image-slice: 245 fill; border-width: 56px; border-image-repeat: round; padding: 1rem .4rem !important;
 }
 #regalos .card-base, #confirmar .card-base {
-  border-image-source: url("/marcos/lot.jpg"); border-image-slice: 200 150 190 fill; border-width: 56px 42px 53px; border-image-repeat: stretch round; padding: 1.2rem .5rem !important;
+  border-image-source: url("/marcos/hort2.jpg"); border-image-slice: 245 fill; border-width: 56px; border-image-repeat: round; padding: 1rem .4rem !important;
 }
-#familia .ornate-card { margin: 0 -10px; }
+#familia .ornate-card { margin: 0 -6px; }
 .mini-flap { display: none; }
 #ubicaciones img.absolute[src*="sello"], #ubicaciones img.absolute[src*="sobre-motivo"] { display: none; }
 
@@ -1579,3 +1579,22 @@ body {
 .hosp-slide { padding-left: 6px !important; padding-right: 6px !important; }
 /* El disco siempre visible (aunque el navegador bloquee el autoplay) y por encima de todo */
 .vinyl-btn { opacity: 1 !important; transform: none !important; pointer-events: auto !important; z-index: 90 !important; }
+
+/* Letra mas calida: las etiquetas dejan la sans de oficina */
+.font-sans-label {
+  font-family: var(--font-serif), serif !important;
+  font-style: italic; text-transform: none !important;
+  letter-spacing: .06em !important; font-weight: 600 !important;
+  font-size: 1.05em;
+}
+.btn-map, .hs-toggle button, .fm-links button, .fm-menu-btn, .dc-look-cta, .hm-chip, .cal-head .font-sans-label { text-transform: none !important; }
+.cal-dow { text-transform: none !important; }
+/* Contador en tarjetas */
+.cuenta-cajas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 1.4rem 0 .4rem; }
+.cuenta-caja {
+  background: #FFFFF4; border-radius: 14px; padding: .75rem 0 .6rem;
+  border: 1px solid rgba(154,123,34,.45);
+  box-shadow: 0 8px 18px rgba(0,30,90,.12), inset 0 0 0 3px #FCFAE8, inset 0 0 0 4px rgba(0,40,120,.18);
+}
+.cuenta-caja .num { font-family: var(--font-serif), serif; font-weight: 700; font-size: 2rem; line-height: 1; color: #002878; font-variant-numeric: lining-nums tabular-nums; }
+.cuenta-caja .lbl { font-family: var(--font-serif), serif; font-style: italic; font-weight: 600; font-size: .95rem; color: var(--olive-soft); margin-top: .3rem; }
