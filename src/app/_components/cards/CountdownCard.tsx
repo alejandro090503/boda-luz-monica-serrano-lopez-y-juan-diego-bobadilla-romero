@@ -257,12 +257,8 @@ export default function CountdownCard() {
 
       <Stagger>
         <p className="font-script" style={{ color: "var(--olive-primary)", fontSize: "2.9rem", lineHeight: 1.1 }}>
-          <Palabras texto={t.faltan} />
+          <span className="cr-eyebrow">Faltan</span><br /><Palabras texto="Cuenta Regresiva" />
         </p>
-      </Stagger>
-
-      <Stagger>
-        <Calendario fecha={FECHA_BODA} dias={resto ? resto.dias : null} />
       </Stagger>
 
       <Stagger>
@@ -274,7 +270,7 @@ export default function CountdownCard() {
             { v: resto ? resto.segundos : null, l: "Seg" },
           ].map((c) => (
             <div key={c.l} className="cuenta-caja">
-              <Giro className="num" valor={c.v === null ? "––" : String(c.v).padStart(2, "0")} />
+              <Giro className="num" valor={c.v === null ? "––" : String(c.v).padStart(c.l === "Días" ? 3 : 2, "0")} />
               <p className="lbl">{c.l}</p>
             </div>
           ))}

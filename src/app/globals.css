@@ -1598,3 +1598,8 @@ body {
 }
 .cuenta-caja .num { font-family: var(--font-serif), serif; font-weight: 700; font-size: 2rem; line-height: 1; color: #002878; font-variant-numeric: lining-nums tabular-nums; }
 .cuenta-caja .lbl { font-family: var(--font-serif), serif; font-style: italic; font-weight: 600; font-size: .95rem; color: var(--olive-soft); margin-top: .3rem; }
+
+.cr-eyebrow { display:inline-block; font-family: var(--font-serif), serif; font-style: italic; font-size: .95rem; letter-spacing: .45em; color: var(--olive-soft); margin-bottom: .2rem; }
+.cuenta-caja { background: #fff !important; border-radius: 16px !important; padding: 1.1rem 0 .9rem !important; box-shadow: 0 10px 22px rgba(0,30,90,.10) !important; border: 0 !important; }
+.cuenta-caja .num { font-size: 2.2rem !important; }
+.cuenta-caja .lbl { font-style: normal !important; letter-spacing: .14em; text-transform: uppercase; font-size: .78rem !important; }
