@@ -1544,16 +1544,16 @@ body {
 #familia .ornate-card::before, #familia .ornate-card::after,
 .card-base::before, .card-base::after { display: none !important; }
 #familia .ornate-card, #cuenta .card-base, #ubicaciones .card-mini-envelope, #vestimenta .tex-count, #album .card-base {
-  border-image-source: url("/marcos/hort2.jpg"); border-image-slice: 245 fill; border-width: 56px; border-image-repeat: round; padding: 1rem .4rem !important;
+  border-image-source: url("/marcos/sobre.jpg"); border-image-slice: 500 fill; border-width: 60px; border-image-repeat: round; padding: 1rem .4rem !important;
 }
 #padrinos .card-base, #vestimenta .tex-beige, #hospedaje .card-base {
-  border-image-source: url("/marcos/hort2.jpg"); border-image-slice: 245 fill; border-width: 56px; border-image-repeat: round; padding: 1rem .4rem !important;
+  border-image-source: url("/marcos/sobre.jpg"); border-image-slice: 500 fill; border-width: 60px; border-image-repeat: round; padding: 1rem .4rem !important;
 }
 #ubicaciones .card-arch, #itinerario .card-base, #galeria .card-base {
-  border-image-source: url("/marcos/hort2.jpg"); border-image-slice: 245 fill; border-width: 56px; border-image-repeat: round; padding: 1rem .4rem !important;
+  border-image-source: url("/marcos/sobre.jpg"); border-image-slice: 500 fill; border-width: 60px; border-image-repeat: round; padding: 1rem .4rem !important;
 }
 #regalos .card-base, #confirmar .card-base {
-  border-image-source: url("/marcos/hort2.jpg"); border-image-slice: 245 fill; border-width: 56px; border-image-repeat: round; padding: 1rem .4rem !important;
+  border-image-source: url("/marcos/sobre.jpg"); border-image-slice: 500 fill; border-width: 60px; border-image-repeat: round; padding: 1rem .4rem !important;
 }
 #familia .ornate-card { margin: 0 -6px; }
 .mini-flap { display: none; }
