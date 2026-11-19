@@ -162,6 +162,10 @@ export const T = {
       `Escribe ${faltan === 1 ? "el nombre que falta" : `los ${faltan} nombres que faltan`} ` +
       "o baja el contador a los pases que vas a utilizar.",
     rsvpSi: "Asistiré",
+    rsvpAsistira: "Asistirá",
+    rsvpNoAsistira: "No asistirá",
+    rsvpNotaAsignados: "Confirma la asistencia de cada persona de tu invitación.",
+    rsvpEligeCada: "Elige una respuesta para cada persona.",
     rsvpNo: "No asistiré",
     rsvpEnviar: "Confirmar asistencia",
     rsvpVencido: "Fecha límite alcanzada",

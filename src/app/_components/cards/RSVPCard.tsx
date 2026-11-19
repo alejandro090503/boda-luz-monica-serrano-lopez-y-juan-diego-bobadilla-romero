@@ -10,7 +10,7 @@ import { Palabras } from "../Vida";
 
 const PANEL_API = "https://panel-invitados.vercel.app/api/confirmar";
 const RSVP_URL = "https://boda-luz-monica-y-juan-diego.vercel.app";
-/* Fecha límite de confirmación: 6 de noviembre de 2026 (coincide con el texto del pie). */
+/* Fecha límite de confirmación: 13 de diciembre de 2026 (coincide con el texto del pie). */
 const DEADLINE = new Date(2026, 11, 13, 23, 59, 59, 999);
 
 const EASE = [0.22, 0.61, 0.36, 1] as const;
@@ -56,6 +56,11 @@ export default function RSVPCard() {
   const [cerrada, setCerrada] = useState(false);
   const [bloqueada, setBloqueada] = useState(false);
   const [faltantes, setFaltantes] = useState<number[]>([]);
+  /* Nombres asignados: el panel manda la lista de personas y cada una se
+     confirma por separado (Asistirá / No asistirá). */
+  const [asignados, setAsignados] = useState<string[]>([]);
+  const [asigChoices, setAsigChoices] = useState<("yes" | "no" | null)[]>([]);
+  const modoAsignados = asignados.length > 0;
   const [resumen, setResumen] = useState<{ estado: "yes" | "no"; nombres: string[] } | null>(null);
   const [feedback, setFeedback] = useState("");
   const [feedbackKind, setFeedbackKind] = useState<"info" | "success" | "warn" | "error">("info");
@@ -70,9 +75,40 @@ export default function RSVPCard() {
       .then((r) => r.json())
       .then((resp) => {
         const d = resp?.invitado;
+        if (resp?.ok && !d) {
+          /* El panel no conoce este link (invitación borrada o renombrada) */
+          setBloqueada(true);
+          setFeedbackKind("warn");
+          setFeedback(t.errLink);
+          setBtnLabel(t.rsvpNoDisponible);
+          return;
+        }
+        if (d?.bloqueado) setBloqueada(true);
+
+        const lista: string[] = Array.isArray(d?.nombres_asignados)
+          ? d.nombres_asignados.map((x: string) => String(x || "").trim()).filter(Boolean)
+          : [];
+        if (lista.length > 0) {
+          setAsignados(lista);
+          setPasesAsignados(lista.length);
+          if (d.estado === "confirmado" || d.estado === "declino") {
+            const conf = (d.nombres_confirmados || []).map((x: string) => String(x || "").toLowerCase().trim());
+            const chs = lista.map((nm) =>
+              d.estado === "declino" ? "no" : conf.includes(nm.toLowerCase()) ? "yes" : "no"
+            ) as ("yes" | "no")[];
+            setAsigChoices(chs);
+            const si = lista.filter((_, i) => chs[i] === "yes");
+            setBtnLabel(t.rsvpActualizar);
+            setResumen({ estado: si.length ? "yes" : "no", nombres: si });
+            setCerrada(true);
+          } else {
+            setAsigChoices(lista.map(() => null));
+          }
+          return;
+        }
+
         const tope = typeof d?.pases === "number" && d.pases > 0 && d.pases <= 20 ? d.pases : pasesUrl;
         setPasesAsignados(tope);
-        if (d?.bloqueado) setBloqueada(true);
 
         if (d && (d.estado === "confirmado" || d.estado === "declino")) {
           const guardados: string[] = (d.nombres_confirmados || []).filter(
@@ -121,17 +157,39 @@ export default function RSVPCard() {
     setFeedback("");
   };
 
+  const elegirPersona = (i: number, v: "yes" | "no") => {
+    if (frozen || bloqueada) return;
+    setAsigChoices((prev) => {
+      const copia = prev.slice();
+      copia[i] = v;
+      return copia;
+    });
+    setFeedback("");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (frozen || enviando || bloqueada || !urlPara) return;
+    let resp: "yes" | "no";
+    let escritos: string[];
+    if (modoAsignados) {
+      if (asigChoices.length !== asignados.length || asigChoices.some((c) => c !== "yes" && c !== "no")) {
+        setFeedbackKind("warn");
+        setFeedback(t.rsvpEligeCada);
+        return;
+      }
+      escritos = asignados.filter((_, i) => asigChoices[i] === "yes");
+      resp = escritos.length > 0 ? "yes" : "no";
+    } else {
     if (!choice) {
       setFeedbackKind("warn");
       setFeedback(t.rsvpElige);
       return;
     }
+    resp = choice;
 
     const asisten = choice === "yes" ? nombres.slice(0, pasesAUsar).map((n) => (n || "").trim()) : [];
-    const escritos = asisten.filter(Boolean);
+    escritos = asisten.filter(Boolean);
 
     if (choice === "yes") {
       if (escritos.length === 0) {
@@ -150,8 +208,9 @@ export default function RSVPCard() {
         return;
       }
     }
+    }
 
-    const estado = choice === "yes" ? "confirmado" : "declino";
+    const estado = resp === "yes" ? "confirmado" : "declino";
     setEnviando(true);
     setBtnLabel(t.rsvpEnviando);
     setFeedback("");
@@ -193,8 +252,8 @@ export default function RSVPCard() {
       }
 
       setBtnLabel(t.rsvpActualizar);
-      if (choice === "yes") lanzarConfeti(null);
-      setResumen({ estado: choice, nombres: escritos });
+      if (resp === "yes") lanzarConfeti(null);
+      setResumen({ estado: resp, nombres: escritos });
       setCerrada(true);
       setFeedback("");
     } catch {
@@ -386,6 +445,65 @@ export default function RSVPCard() {
                 transition={{ duration: 0.4, ease: EASE }}
                 className="max-w-[360px] mx-auto space-y-5"
               >
+                {modoAsignados ? (
+                  <div className="space-y-3">
+                    <p
+                      className="font-serif italic mx-auto"
+                      style={{ color: "var(--ink-dark)", fontSize: "1.05rem", lineHeight: 1.55 }}
+                    >
+                      {t.rsvpNotaAsignados}
+                    </p>
+                    {asignados.map((nm, i) => (
+                      <div
+                        key={`p-${i}`}
+                        className="px-4 py-3"
+                        style={{
+                          background: "rgba(255,253,249,0.72)",
+                          border: "1.5px solid var(--beige)",
+                          borderRadius: 14,
+                        }}
+                      >
+                        <p
+                          className="font-serif mb-2"
+                          style={{ color: "var(--olive-primary)", fontSize: "1.3rem", fontWeight: 700, lineHeight: 1.3 }}
+                        >
+                          {nm}
+                        </p>
+                        <div className="flex gap-2">
+                          {(["yes", "no"] as const).map((val) => {
+                            const activo = asigChoices[i] === val;
+                            const isYes = val === "yes";
+                            return (
+                              <button
+                                key={val}
+                                type="button"
+                                onClick={() => elegirPersona(i, val)}
+                                disabled={togglesDisabled}
+                                aria-pressed={activo}
+                                className="flex-1 py-2.5 font-serif italic transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                style={{
+                                  border: `1.5px solid ${
+                                    activo ? (isYes ? "var(--olive-primary)" : "var(--terracotta)") : "var(--beige)"
+                                  }`,
+                                  backgroundColor: activo
+                                    ? isYes
+                                      ? "var(--olive-primary)"
+                                      : "var(--terracotta)"
+                                    : "rgba(255,253,249,0.55)",
+                                  color: activo ? "var(--bg-cream)" : "var(--ink-dark)",
+                                  fontSize: "1rem",
+                                  borderRadius: 10,
+                                }}
+                              >
+                                {isYes ? t.rsvpAsistira : t.rsvpNoAsistira}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (<>
                 <div className="flex gap-2">
                   {(["yes", "no"] as const).map((val) => {
                     const activo = choice === val;
@@ -528,6 +646,7 @@ export default function RSVPCard() {
                     </div>
                   </div>
                 )}
+                </>)}
 
                 <button
                   type="submit"
